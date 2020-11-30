@@ -104,7 +104,7 @@ resource "aws_instance" "bastionhost" {
   count         = var.bastion_host ? 1 : 0
   ami           = "ami-0bd39c806c2335b95"
   instance_type = "t2.micro"
-  key_name      = "mbp"
+  key_name      = var.key_name
   subnet_id     = aws_subnet.public-subnet[0].id
 
   vpc_security_group_ids      = [aws_security_group.bastion[0].id]

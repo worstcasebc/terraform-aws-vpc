@@ -67,6 +67,12 @@ variable "bastion_host" {
   default     = false
 }
 
+variable "key_name" {
+  description = "Name of the KeyPair for ssh-access"
+  type = string
+  default = "mbp"
+}
+
 data "http" "icanhazip" {
   url = "http://icanhazip.com"
 }
