@@ -100,7 +100,7 @@ resource "aws_route_table" "nat-gateway" {
 resource "aws_route_table_association" "nat-gateway" {
   count = var.enable_nat_gateway ? length(var.private_subnets) : 0
   subnet_id      = aws_subnet.private-subnet[count.index].id
-  route_table_id = aws_route_table.nat-gateway.id
+  route_table_id = aws_route_table.nat-gateway[0].id
 }
 
 resource "aws_instance" "bastionhost" {
