@@ -77,7 +77,7 @@ resource "aws_eip" "nat-gateway-ip" {
 
 resource "aws_nat_gateway" "nat-gateway" {
   count = var.enable_nat_gateway ? 1 : 0
-  allocation_id = aws_eip.nat-gateway-ip.id
+  allocation_id = aws_eip.nat-gateway-ip[0].id
   subnet_id     = aws_subnet.public-subnet[0].id
   tags = {
     "Name" = "NATGateway"
