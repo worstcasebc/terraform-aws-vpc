@@ -71,10 +71,12 @@ resource "aws_route_table_association" "rta-public-subnet" {
 }
 
 resource "aws_eip" "nat-gateway-ip" {
+  count = var.enable_nat_gateway ? 1 : 0
   vpc = true
 }
 
 resource "aws_nat_gateway" "nat-gateway" {
+  count = var.enable_nat_gateway ? 1 : 0
   allocation_id = aws_eip.nat-gateway-ip.id
   subnet_id     = aws_subnet.public-subnet[0].id
   tags = {
