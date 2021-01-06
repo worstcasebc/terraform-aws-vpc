@@ -85,6 +85,7 @@ resource "aws_nat_gateway" "nat-gateway" {
 }
 
 resource "aws_route_table" "nat-gateway" {
+  count = var.enable_nat_gateway ? 1 : 0
   vpc_id = aws_vpc.vpc.id
   route {
     cidr_block     = "0.0.0.0/0"
@@ -97,7 +98,7 @@ resource "aws_route_table" "nat-gateway" {
 }
 
 resource "aws_route_table_association" "nat-gateway" {
-  count          = length(var.private_subnets)
+  count = var.enable_nat_gateway ? length(var.private_subnets) : 0
   subnet_id      = aws_subnet.private-subnet[count.index].id
   route_table_id = aws_route_table.nat-gateway.id
 }
